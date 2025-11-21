@@ -1,6 +1,8 @@
+import { useSelector } from 'react-redux';
 import styles from '../styles/TweetInput.module.css';
 
 export default function TweetInput({ newTweet, setNewTweet, onTweet }) {
+  const userRedux = useSelector((state) => state.user.value);
   const maxLength = 280;
   const remaining = Math.max(0, maxLength - (newTweet?.length || 0));
 
@@ -22,7 +24,7 @@ export default function TweetInput({ newTweet, setNewTweet, onTweet }) {
           <span className={styles.counter}>{remaining}/280</span>
           <button
             className={styles.button}
-            onClick={onTweet}
+            onClick={() => onTweet(userRedux?.username)}
             disabled={!newTweet.trim() || newTweet.length > maxLength}
           >
             Tweet

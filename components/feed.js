@@ -56,22 +56,6 @@ export default function Feed() {
           </button>
         </div>
 
-        <div>
-          {tweets.map((tweet) => (
-            <div
-              key={tweet._id}
-              style={{
-                border: '1px solid #ddd',
-                padding: 10,
-                marginBottom: 10,
-                borderRadius: 8,
-              }}
-            >
-              <strong>@anonymous</strong>
-              <p>{tweet.content}</p> 
-            </div>
-          ))}
-        </div>
 
       </main>
     </div>

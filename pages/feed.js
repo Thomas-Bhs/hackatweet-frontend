@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import Sidebar from '../components/sidebar';
 import TweetInput from '../components/tweetInput';
 import Tweet from '../components/tweet';
@@ -11,6 +12,7 @@ export default function FeedPage() {
   const [trends, setTrends] = useState([]);
   const [filterTag, setFilterTag] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
+  const userRedux = useSelector((state) => state.user.value);
 
   const recomputeTrends = (list) => {
     const counts = new Map();
@@ -47,6 +49,7 @@ export default function FeedPage() {
         if (data.result && Array.isArray(data.tweets)) {
           const normalized = data.tweets.map((t) => ({
             ...t,
+            username: t.username || t.userName || t.userTag || 'anonymous',
             createdAt:
               t.createdAt ||
               t.created_at ||
@@ -63,19 +66,21 @@ export default function FeedPage() {
   }, []);
 
 
-  const handleTweet = () => {
+  const handleTweet = (authorUsername) => {
+    const username = authorUsername || userRedux?.username || 'anonymous';
     if (!newTweet.trim() || newTweet.length > 280) return;
 
     fetch('http://localhost:3000/tweets', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ content: newTweet }),
+      body: JSON.stringify({ content: newTweet, username }),
     })
       .then((res) => res.json())
       .then((data) => {
         if (data.result && data.tweet) {
           const tweetWithDate = {
             ...data.tweet,
+            username,
             createdAt:
               data.tweet.createdAt ||
               data.tweet.created_at ||
@@ -124,7 +129,7 @@ export default function FeedPage() {
           {visibleTweets.map((t) => (
             <Tweet
               key={t._id}
-              username="Antoine"
+              username={t.username || t.userName || t.userTag}
               content={t.content}
               createdAt={t.createdAt}
             />
