@@ -24,6 +24,15 @@ function SignUp() {
 			.then(data => {
           console.log('Backend response:', data);
 				if (data.result) {
+          if (typeof window !== 'undefined') {
+            const currentUser = {
+              firstName: signUpFirstname,
+              username: signUpUsername,
+              token: data.token,
+              avatarUrl: data.avatarUrl || null,
+            };
+            window.localStorage.setItem('currentUser', JSON.stringify(currentUser));
+          }
 					dispatch(login({ username: signUpUsername, token: data.token }));
           setSignUpFirstname('');
 					setSignUpUsername('');
