@@ -1,11 +1,7 @@
 import styles from '../styles/Trends.module.css';
 
-export default function Trends(props) {
-
-  const trends = props.trends || [
-    { tag: '#hackatweet', count: 2 },
-    { tag: '#first', count: 1 },
-  ];
+export default function Trends({ trends = [] }) {
+  if (!trends.length) return null;
 
   return (
     <aside className={styles.trends}>

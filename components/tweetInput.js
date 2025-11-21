@@ -1,7 +1,8 @@
 import styles from '../styles/TweetInput.module.css';
 
 export default function TweetInput({ newTweet, setNewTweet, onTweet }) {
-  const remaining = 280 - (newTweet?.length || 0);
+  const maxLength = 280;
+  const remaining = Math.max(0, maxLength - (newTweet?.length || 0));
 
   return (
     <div className={styles.container}>
@@ -12,7 +13,8 @@ export default function TweetInput({ newTweet, setNewTweet, onTweet }) {
           className={styles.textarea}
           placeholder="What's up?"
           value={newTweet}
-          onChange={(e) => setNewTweet(e.target.value)}
+          onChange={(e) => setNewTweet(e.target.value.slice(0, maxLength))}
+          maxLength={maxLength}
           rows={2}
         />
 
@@ -21,7 +23,7 @@ export default function TweetInput({ newTweet, setNewTweet, onTweet }) {
           <button
             className={styles.button}
             onClick={onTweet}
-            disabled={!newTweet.trim()}
+            disabled={!newTweet.trim() || newTweet.length > maxLength}
           >
             Tweet
           </button>

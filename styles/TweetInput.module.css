@@ -1,8 +1,8 @@
 .container {
   display: flex;
-  padding: 16px 24px;
   gap: 12px;
-  background-color: #020817;
+  padding-top: 4px;
+  background-color: transparent;
 }
 
 .avatar {
@@ -22,14 +22,13 @@
 .textarea {
   width: 100%;
   border: none;
+  border-bottom: 1px solid #1f2937;
   resize: none;
   background-color: transparent;
   color: #e5e7eb;
   font-size: 16px;
-  outline: none;
   padding-top: 8px;
   padding-bottom: 8px;
-  border-bottom: 1px solid #1f2937;
 }
 
 .textarea::placeholder {

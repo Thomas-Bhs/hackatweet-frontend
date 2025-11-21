@@ -6,11 +6,26 @@ import Trends from '../components/trends';
 import styles from '../styles/Feed.module.css';
 
 export default function FeedPage() {
-
   const [newTweet, setNewTweet] = useState('');
   const [tweets, setTweets] = useState([]);
+  const [trends, setTrends] = useState([]);
 
- 
+  const recomputeTrends = (list) => {
+    const counts = new Map();
+    list.forEach((t) => {
+      const matches = typeof t.content === 'string' ? t.content.match(/#([\p{L}\p{N}_]+)/gu) : null;
+      if (!matches) return;
+      matches.forEach((rawTag) => {
+        const tag = rawTag.toLowerCase();
+        counts.set(tag, (counts.get(tag) || 0) + 1);
+      });
+    });
+    const sorted = Array.from(counts.entries())
+      .map(([tag, count]) => ({ tag, count }))
+      .sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag));
+    setTrends(sorted);
+  };
+
   useEffect(() => {
     fetch('http://localhost:3000/tweets')
       .then((res) => res.json())
@@ -24,16 +39,18 @@ export default function FeedPage() {
               t.date ||
               t.created ||
               t.timestamp ||
-              new Date().toISOString(),
+              // fallback: extract timestamp from MongoDB ObjectId to avoid "à l'instant"
+              new Date(parseInt(t._id.substring(0, 8), 16) * 1000).toISOString(),
           }));
           setTweets(normalized);
+          recomputeTrends(normalized);
         }
       });
   }, []);
 
 
   const handleTweet = () => {
-    if (!newTweet.trim()) return;
+    if (!newTweet.trim() || newTweet.length > 280) return;
 
     fetch('http://localhost:3000/tweets', {
       method: 'POST',
@@ -53,7 +70,11 @@ export default function FeedPage() {
               data.tweet.timestamp ||
               new Date().toISOString(),
           };
-          setTweets((prev) => [tweetWithDate, ...prev]);
+          setTweets((prev) => {
+            const next = [tweetWithDate, ...prev];
+            recomputeTrends(next);
+            return next;
+          });
           setNewTweet('');
         }
       });
@@ -65,11 +86,8 @@ export default function FeedPage() {
       <Sidebar />
 
       <main className={styles.mainColumn}>
-        <header className={styles.header}>
-          <h1 className={styles.headerTitle}>Home</h1>
-        </header>
-
         <section className={styles.inputSection}>
+          <h1 className={styles.headerTitle}>Home</h1>
           <TweetInput
             newTweet={newTweet}
             setNewTweet={setNewTweet}
@@ -89,7 +107,7 @@ export default function FeedPage() {
         </section>
       </main>
 
-      <Trends />
+      <Trends trends={trends} />
     </div>
   );
 }

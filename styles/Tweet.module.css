@@ -2,8 +2,13 @@
   display: flex;
   padding: 16px 24px;
   gap: 12px;
-  border-bottom: 1px solid #1f2937;
+  border: 1px solid #1f2937;
+  border-top: none; /* continue the line from previous tweet */
   background-color: #020817;
+}
+
+.tweet:first-child {
+  border-top: none; /* avoid double line with input section */
 }
 
 .avatar {
@@ -63,7 +68,7 @@
   font-size: 13px;
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
   cursor: pointer;
 }
 
@@ -73,4 +78,12 @@
 
 .likeCount {
   font-size: 13px;
+}
+
+.heart {
+  font-size: 19px;
+}
+
+.liked {
+  color: #ef4444;
 }

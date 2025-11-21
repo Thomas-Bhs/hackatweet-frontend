@@ -7,11 +7,7 @@ export default function Sidebar() {
         <span className={styles.logoIcon}>🐦</span>
       </div>
 
-      <nav className={styles.menu}>
-        <button className={styles.menuItem}>Home</button>
-        <button className={styles.menuItem}>Profile</button>
-        <button className={styles.menuItem}>Logout</button>
-      </nav>
+
 
       <div className={styles.profile}>
         <div className={styles.avatar}></div>
