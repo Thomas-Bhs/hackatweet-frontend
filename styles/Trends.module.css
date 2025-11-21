@@ -1,0 +1,39 @@
+.trends {
+  width: 320px;
+  background-color: #020617;
+  padding: 16px;
+  color: #e5e7eb;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+
+.list {
+  background-color: #020817;
+  border-radius: 16px;
+  padding: 16px;
+  border: 1px solid #111827;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+}
+
+.tag {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.count {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 4px;
+}
