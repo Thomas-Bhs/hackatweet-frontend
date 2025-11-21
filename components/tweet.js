@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import styles from '../styles/Tweet.module.css';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faHeart } from '@fontawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
+
 
 function formatRelativeTime(dateInput) {
   const date = new Date(dateInput);
@@ -68,7 +69,7 @@ export default function Tweet({ username, content, createdAt }) {
             onClick={handleLike}
           >
             <span className={styles.heart} aria-hidden="true">
-              {/* <FontAwesomeIcon icon={faHeart} /> */}
+              <FontAwesomeIcon icon={faHeart} />
             </span>
             <span className={styles.likeCount}>{likeCount}</span>
           </button>

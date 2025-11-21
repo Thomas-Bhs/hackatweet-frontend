@@ -9,6 +9,8 @@ export default function FeedPage() {
   const [newTweet, setNewTweet] = useState('');
   const [tweets, setTweets] = useState([]);
   const [trends, setTrends] = useState([]);
+  const [filterTag, setFilterTag] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
 
   const recomputeTrends = (list) => {
     const counts = new Map();
@@ -27,6 +29,18 @@ export default function FeedPage() {
   };
 
   useEffect(() => {
+    // Example: recover logged user from localStorage if set by login flow
+    if (typeof window !== 'undefined') {
+      const raw = window.localStorage.getItem('currentUser');
+      if (raw) {
+        try {
+          setCurrentUser(JSON.parse(raw));
+        } catch (_) {
+          // ignore parse errors
+        }
+      }
+    }
+
     fetch('http://localhost:3000/tweets')
       .then((res) => res.json())
       .then((data) => {
@@ -80,10 +94,21 @@ export default function FeedPage() {
       });
   };
 
+  const handleSelectTrend = (tag) => {
+    setFilterTag((prev) => (prev === tag ? null : tag));
+  };
+
+  const visibleTweets = filterTag
+    ? tweets.filter((t) => {
+        if (typeof t.content !== 'string') return false;
+        const regex = new RegExp(`\\B${filterTag}(?![\\p{L}\\p{N}_])`, 'iu');
+        return regex.test(t.content);
+      })
+    : tweets;
 
   return (
     <div className={styles.app}>
-      <Sidebar />
+      <Sidebar user={currentUser} />
 
       <main className={styles.mainColumn}>
         <section className={styles.inputSection}>
@@ -96,7 +121,7 @@ export default function FeedPage() {
         </section>
 
         <section className={styles.tweetsSection}>
-          {tweets.map((t) => (
+          {visibleTweets.map((t) => (
             <Tweet
               key={t._id}
               username="Antoine"
@@ -107,7 +132,7 @@ export default function FeedPage() {
         </section>
       </main>
 
-      <Trends trends={trends} />
+      <Trends trends={trends} activeTag={filterTag} onSelectTrend={handleSelectTrend} />
     </div>
   );
 }

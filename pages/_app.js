@@ -17,7 +17,9 @@ function App({ Component, pageProps }) {
 
     <Provider store={store}>
       <Head>
-        <title>Mon app hackaton</title>
+        <title>Hackatweet</title>
+        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
       </Head>
       <Component {...pageProps} />
     </Provider>
