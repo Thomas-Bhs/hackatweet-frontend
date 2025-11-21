@@ -1,0 +1,76 @@
+.tweet {
+  display: flex;
+  padding: 16px 24px;
+  gap: 12px;
+  border-bottom: 1px solid #1f2937;
+  background-color: #020817;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #3b82f6, #60a5fa);
+  flex-shrink: 0;
+}
+
+.body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+}
+
+.displayName {
+  font-weight: 700;
+}
+
+.handle,
+.time {
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.dot {
+  color: #6b7280;
+}
+
+.content {
+  margin-top: 4px;
+  font-size: 15px;
+  line-height: 1.4;
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.footer {
+  margin-top: 8px;
+  display: flex;
+  gap: 16px;
+}
+
+.iconButton {
+  background: none;
+  border: none;
+  color: #9ca3af;
+  font-size: 13px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.iconButton:hover {
+  color: #f9fafb;
+}
+
+.likeCount {
+  font-size: 13px;
+}
