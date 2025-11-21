@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import styles from '../styles/Login.module.css';
 import SignUp from './SignUp';
+import SignIn from './SignIn';
 
 
 
 function Login() {
 
 const [showSignUp, setShowSignUp] = useState(false)
+const [showSignIn, setShowSignIn] = useState(false)
 
 
   return (
@@ -27,11 +29,11 @@ const [showSignUp, setShowSignUp] = useState(false)
           <h1 className={styles.title}>See what’s happening</h1>
           <h3 className={styles.subtitle}>Join Hackatweet today.</h3>
 
-          <button onClick={()=> setShowSignUp(true)} className={styles.signup}>Sign up</button>
+          <button onClick={()=> setShowSignUp(true)} className={styles.signup}>Sign Up</button>
 
           <p className={styles.account}>Already have an account ?</p>
 
-          <button className={styles.signup}>Sign in</button>
+          <button onClick={()=> setShowSignIn(true)} className={styles.signin}>Sign In</button>
         </div>
     </div>
 
@@ -40,6 +42,15 @@ const [showSignUp, setShowSignUp] = useState(false)
           <div className={styles.modalOverlay}>
             <div className={styles.modalContent}>
               <SignUp/>
+            </div>
+          </div>
+        )}
+
+         {/* Pop-up Signin */}
+         {showSignIn && (
+          <div className={styles.modalOverlay}>
+            <div className={styles.modalContent}>
+              <SignIn/>
             </div>
           </div>
         )}

@@ -1,11 +1,19 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../reducers/user';
+import { useRouter } from 'next/router';
+import styles from '../styles/SignUp.module.css';
+
+
 
 
 function SignUp() {
 
   const dispatch = useDispatch();
+  //redirection 
+  const router = useRouter();
+
+
   const [signUpFirstname, setSignUpFirstname] = useState('');
   const [signUpUsername, setSignUpUsername] = useState('');
   const [signUpPassword, setSignUpPassword] = useState('');
@@ -28,6 +36,9 @@ function SignUp() {
           setSignUpFirstname('');
 					setSignUpUsername('');
 					setSignUpPassword('');
+
+          //redirection sur la page feed après inscription
+          router.push('/feed');
 				}
 			});
 	};
@@ -37,8 +48,8 @@ console.log("USER IN REDUX:", userRedux);
 
   return (
     <div className="modal-signup">
-      <div className="modal-content">
-        <p>ModalSignUp</p>
+      <div className={styles.SignUpcontent}>
+        <p>Sign Up</p>
         <input
         type="text"
         placeholder="firsname"

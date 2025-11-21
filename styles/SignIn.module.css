@@ -1,0 +1,43 @@
+.SignIncontent{
+  display: flex;
+  flex-direction: column;
+}
+
+.SignIncontent p {
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.SignIncontent input {
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  text-align: center;
+}
+
+
+.SignIncontent input:focus {
+  border-color: #0070f3;
+  box-shadow: 0 0 5px rgba(0,112,243,0.5);
+}
+
+/* Bouton Register */
+.SignIncontent button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  background-color: #0070f3;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.SignIncontent button:hover {
+  background-color: #005bb5;
+}
